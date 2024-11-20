@@ -1,65 +1,75 @@
-BDS ICAM - Gestion des Événements
+# BDS ICAM - Gestion des Événements
   Ce projet est une application web développée pour le Bureau des Sports (BDS) de l'ICAM Strasbourg-Europe. Elle permet aux étudiants de consulter, créer, gérer et s'inscrire à divers événements proposés par l'école.
 
 
-Fonctionnalités principales
-  Gestion des comptes utilisateurs :
-    Inscription avec vérification des e-mails ICAM.
-    Connexion sécurisée avec mot de passe.
-    Modification du profil, ajout de photo de profil.
+- Fonctionnalités principales
+    - Gestion des comptes utilisateurs :
+      - Inscription avec vérification des e-mails ICAM.
+      - Connexion sécurisée avec mot de passe.
+      - Modification du profil, ajout de photo de profil.
   
-  Gestion des événements :
-    Consultation des événements disponibles avec options de recherche et filtres par discipline.
-    Création et gestion d'événements par les utilisateurs.
-    Visualisation des participants inscrits à un événement.
+- Gestion des événements :
+    - Consultation des événements disponibles avec options de recherche et filtres par discipline.
+    - Création et gestion d'événements par les utilisateurs.
+    - Visualisation des participants inscrits à un événement.
   
-  Esthétique moderne et ergonomique :
-    Respect de la charte graphique (couleurs bleu et jaune).
-    Design responsive pour une utilisation agréable sur tous les appareils.
+- Esthétique moderne et ergonomique :
+    - Respect de la charte graphique (couleurs bleu et jaune).
+    - Design responsive pour une utilisation agréable sur tous les appareils.
 
-Technologies utilisées
-  Backend :
-    Django 5.0.6
-    Python 3.12.2
-  Base de données :
-    MySQL (via WAMP Server)
-  Frontend :
-    HTML, CSS
-  Autres :
-    WAMP Server pour l'environnement local.
-    Django ORM pour les interactions avec la base de données.
+- Technologies utilisées
+  - Backend :
+    - Django 5.0.6
+    - Python 3.12.2
+  - Base de données :
+    - MySQL (via WAMP Server)
+  - Frontend :
+    - HTML, CSS
+  - Autres :
+    - WAMP Server pour l'environnement local.
+    - Django ORM pour les interactions avec la base de données.
 
-Installation et exécution
-  Prérequis
-    Python installé (3.8 ou version ultérieure).
-    WAMP Server (ou un serveur compatible avec MySQL).
-    Git pour la gestion de version.
+- Installation et exécution
+  - Prérequis
+    - Python installé (3.8 ou version ultérieure).
+    - WAMP Server (ou un serveur compatible avec MySQL).
+    - Git pour la gestion de version.
 
-Étapes
+## Étapes
   
-  Clonez le projet :
-    ```git clone https://github.com/<votre-utilisateur>/BDS_ICAM.git
-    cd BDS_ICAM```
-  
-  Créez un environnement virtuel et activez-le :
-    ```py -m venv env
-    env\Scripts\activate```
-  
-  Installez les dépendances :
-    ```pip install -r requirements.txt```
-  
-  Configurez la base de données :
-    Importez le fichier SQL (```bds_icam_db.sql```) dans votre MySQL via phpMyAdmin.
+1. Clonez le projet :
+  - ```
+    git clone https://github.com/<votre-utilisateur>/BDS_ICAM.git
+    cd BDS_ICAM
+    ```
 
-  Appliquez les migrations :
-    ```python manage.py makemigrations
-    python manage.py migrate```
+3. Créez un environnement virtuel et activez-le :
+  - ```
+    py -m venv env
+    env\Scripts\activate
+    ```
 
-  Lancez le serveur de développement :
-    ```python manage.py runserver```
+5. Installez les dépendances :
+  - ```
+    pip install -r requirements.txt
+    ```
 
-  Accédez à l'application :
-    ```Ouvrez un navigateur et rendez-vous sur : http://127.0.0.1:8000```
+7. Configurez la base de données :
+  - Importez le fichier SQL (```bds_icam_db.sql```) dans votre MySQL via phpMyAdmin.
+
+5. Appliquez les migrations :
+  - ```
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+7. Lancez le serveur de développement :
+  - ```
+    python manage.py runserver
+    ```
+
+9. Accédez à l'application :
+  - Ouvrez un navigateur et rendez-vous sur : ```http://127.0.0.1:8000```
 
 
 Structure du projet
@@ -87,17 +97,21 @@ BDS_ICAM_PRJT/
 └── README.md                # Fichier d'information (vous lisez ceci)
 ```
 
-Sécurité
-  Les mots de passe sont hachés et sécurisés.
-  Utilisation des jetons CSRF pour prévenir les attaques Cross-Site Request Forgery.
-  Accès administrateur limité aux super-utilisateurs via /admin.
+- Sécurité
+  - Les mots de passe sont hachés et sécurisés.
+  - Utilisation des jetons CSRF pour prévenir les attaques Cross-Site Request Forgery.
+  - Accès administrateur limité aux super-utilisateurs via /admin.
 
-Créer un super utilisateur :
-  python manage.py createsuperuser
+- Créer un super utilisateur :
+  - ```
+    python manage.py createsuperuser
+    ```
 
-Appliquer les migrations pour la base de données :
-  python manage.py makemigrations
-  python manage.py migrate
+- Appliquer les migrations pour la base de données :
+  - ```
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
 
 
 
