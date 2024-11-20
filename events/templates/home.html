@@ -17,9 +17,23 @@
             color: #fff; /* Blanc */
             padding: 20px;
             text-align: center;
+            display: flex; /* Ajouté pour positionner l'image et le texte */
+            align-items: center; /* Centrer verticalement */
+            justify-content: space-between; /* Espacement entre l'image et le texte */
         }
         header h1 {
             margin: 0;
+            flex: 1; /* Permet au titre de prendre l'espace disponible */
+            text-align: center; /* Centrer le texte */
+        }
+        .header-image { /* Ajouté */
+            flex: 0 0 100px; /* Taille fixe pour l'image */
+            max-height: 80px;
+        }
+        .header-image img { /* Ajouté */
+            height: 80px; /* Fixe la hauteur maximale */
+            width: auto; /* Garde le ratio */
+            border-radius: 5px; /* Coins arrondis */
         }
         .container {
             max-width: 1000px;
@@ -112,10 +126,11 @@
 </head>
 <body>
     <header>
+        <!-- Ajout de l'image -->
+        <div class="header-image">
+            <img src="\media\logo_site\BDS_LOGO.png" alt="Logo">
+        </div>
         <h1>Liste des événements - BDS ICAM</h1>
-        {% if user.is_authenticated %}
-            <p>Bienvenue, {{ user.username }} !</p>
-        {% endif %}
     </header>
     <div class="container">
         <div class="actions">
