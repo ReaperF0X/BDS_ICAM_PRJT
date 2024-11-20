@@ -38,32 +38,32 @@ Installation et exécution
 Étapes
   
   Clonez le projet :
-    git clone https://github.com/<votre-utilisateur>/BDS_ICAM.git
-    cd BDS_ICAM
+    ```git clone https://github.com/<votre-utilisateur>/BDS_ICAM.git
+    cd BDS_ICAM```
   
   Créez un environnement virtuel et activez-le :
-    py -m venv env
-    env\Scripts\activate
+    ```py -m venv env
+    env\Scripts\activate```
   
   Installez les dépendances :
-    pip install -r requirements.txt
+    ```pip install -r requirements.txt```
   
   Configurez la base de données :
-    Importez le fichier SQL (bds_icam_db.sql) dans votre MySQL via phpMyAdmin.
+    Importez le fichier SQL (```bds_icam_db.sql```) dans votre MySQL via phpMyAdmin.
 
   Appliquez les migrations :
-    python manage.py makemigrations
-    python manage.py migrate
+    ```python manage.py makemigrations
+    python manage.py migrate```
 
   Lancez le serveur de développement :
-    python manage.py runserver
+    ```python manage.py runserver```
 
   Accédez à l'application :
-    Ouvrez un navigateur et rendez-vous sur : http://127.0.0.1:8000
+    ```Ouvrez un navigateur et rendez-vous sur : http://127.0.0.1:8000```
 
 
 Structure du projet
-
+```
 BDS_ICAM_PRJT/
 │
 ├── BDS_ICAM/                # Application principale
@@ -85,7 +85,7 @@ BDS_ICAM_PRJT/
 │
 ├── manage.py                # Point d'entrée pour les commandes Django
 └── README.md                # Fichier d'information (vous lisez ceci)
-
+```
 
 Sécurité
   Les mots de passe sont hachés et sécurisés.
