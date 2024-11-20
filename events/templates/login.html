@@ -3,20 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Connexion - BDS ICAM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9ff; /* Bleu clair */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0044cc; /* Bleu foncé */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #ffa500; /* Jaune */
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0044cc; /* Bleu foncé */
+        }
+        a {
+            text-decoration: none;
+            color: #0044cc;
+            font-size: 14px;
+        }
+        a:hover {
+            color: #ffa500;
+        }
+    </style>
 </head>
 <body>
-    <h1>Connexion</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username">Nom d'utilisateur :</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Se connecter</button>
-    </form>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
+    <header>
+        <h1>Connexion</h1>
+    </header>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Se connecter</button>
+        </form>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %} 
+        <p>Pas encore inscrit ? <a href="{% url 'register' %}">Créer un compte</a></p>
+    </div>
 </body>
 </html>

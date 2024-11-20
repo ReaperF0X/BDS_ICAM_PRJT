@@ -15,7 +15,7 @@ from .models import User
 
 
 def home(request):
-    query = request.GET.get('q')  # Récupère la valeur de la barre de recherche
+    query = request.GET.get('q', '')  # Récupère la valeur de la barre de recherche
     discipline_filter = request.GET.get('discipline')  # Récupère la valeur du filtre par discipline
 
     # Récupère tous les événements
@@ -161,6 +161,15 @@ def edit_profile(request):
         form = ProfileForm(instance=user)
     return render(request, 'edit_profile.html', {'form': form})
 
+#def view_profile(request, user_id):
+#    user = get_object_or_404(User, id=user_id)
+#    return render(request, 'view_profile.html', {'profile_user': user})
+
+@login_required
 def view_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    return render(request, 'view_profile.html', {'profile_user': user})
+    
+    # Récupérer les événements créés par cet utilisateur
+    user_events = Event.objects.filter(creator=user)
+    
+    return render(request, 'view_profile.html', {'profile_user': user, 'user_events': user_events,})

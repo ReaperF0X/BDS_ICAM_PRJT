@@ -18,8 +18,8 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
-            margin: 30px auto;
+            max-width: 800px;
+            margin: 20px auto;
             background: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -36,20 +36,29 @@
         }
         h2 {
             color: #0044cc;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
             margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
         }
-        p {
-            color: #333;
-            margin: 5px 0;
+        li img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
         }
-        a {
+        li a {
             text-decoration: none;
             color: #0044cc;
-            font-size: 14px;
             font-weight: bold;
         }
-        a:hover {
-            color: #ffa500;
+        li a:hover {
+            color: #ffa500; /* Jaune */
         }
         footer {
             text-align: center;
@@ -77,6 +86,34 @@
 
         {% if profile_user.first_name or profile_user.last_name %}
             <p><strong>Nom complet : </strong>{{ profile_user.first_name }} {{ profile_user.last_name }}</p>
+        {% endif %}
+
+        <h2>Événements créés par {{ profile_user.username }} :</h2>
+        {% if user_events %}
+            <ul>
+                {% for event in user_events %}
+                <li>
+                    {% if event.illustration %}
+                        <img src="{{ event.illustration.url }}" alt="Illustration de {{ event.title }}">
+                    {% endif %}
+                    <div>
+                        <strong>{{ event.title }}</strong> - {{ event.discipline.name }}<br>
+                        <span>{{ event.date }} à {{ event.time }}</span>
+                        <p>{{ event.description|default:"Aucune description disponible." }}</p>
+                        <div class="event-links">
+                            <a href="{% url 'register_to_event' event.id %}">S'inscrire</a>
+                            <a href="{% url 'view_participants' event.id %}">Voir les participants</a>
+                            {% if event.creator == user %}
+                                <a href="{% url 'edit_event' event.id %}">Modifier</a>
+                                <a href="{% url 'delete_event' event.id %}">Supprimer</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun événement publié par cet utilisateur.</p>
         {% endif %}
 
         <a href="{% url 'home' %}">Retour à la page d'accueil</a>
