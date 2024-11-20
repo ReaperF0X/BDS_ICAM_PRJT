@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - BDS ICAM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9ff; /* Bleu clair pour l'arrière-plan */
+            color: #333; /* Couleur de texte */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0044cc; /* Bleu foncé */
+            color: #fff; /* Blanc */
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff; /* Fond blanc pour le contenu */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .actions a {
+            text-decoration: none;
+            color: #0044cc;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .actions a:hover {
+            color: #ffa500; /* Jaune pour l'effet de survol */
+        }
+        .search-filter {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-filter input, .search-filter select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-filter button {
+            background-color: #ffa500; /* Jaune */
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .search-filter button:hover {
+            background-color: #0044cc; /* Bleu foncé */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9; /* Gris clair */
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        li img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        li div {
+            flex: 1;
+        }
+        li strong {
+            font-size: 18px;
+            color: #0044cc; /* Bleu foncé */
+        }
+        li p {
+            margin: 5px 0;
+        }
+        .event-links a {
+            margin-right: 10px;
+            color: #0044cc; /* Bleu foncé */
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .event-links a:hover {
+            color: #ffa500; /* Jaune */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0044cc;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Liste des événements - BDS ICAM</h1>
+        {% if user.is_authenticated %}
+            <p>Bienvenue, {{ user.username }} !</p>
+        {% endif %}
+    </header>
+    <div class="container">
+        <div class="actions">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Se déconnecter</a>
+                <a href="{% url 'create_event' %}">Créer un événement</a>
+                <a href="{% url 'edit_profile' %}">Modifier mon profil</a>
+            {% else %}
+                <a href="{% url 'login' %}">Se connecter</a>
+                <a href="{% url 'register' %}">S'inscrire</a>
+            {% endif %}
+        </div>
+
+        <form method="get" action="{% url 'home' %}" class="search-filter">
+            <input type="text" name="q" placeholder="Rechercher un événement..." value="{{ query }}">
+            <select name="discipline">
+                <option value="">Toutes les disciplines</option>
+                {% for discipline in disciplines %}
+                    <option value="{{ discipline.id }}" {% if discipline_filter == discipline.id|stringformat:"s" %}selected{% endif %}>
+                        {{ discipline.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Rechercher</button>
+        </form>
+
+        <ul>
+            {% for event in events %}
+                <li>
+                    {% if event.illustration %}
+                        <img src="{{ event.illustration.url }}" alt="Illustration de {{ event.title }}">
+                    {% endif %}
+                    <div>
+                        <strong>{{ event.title }}</strong> - {{ event.discipline.name }}<br>
+                        <span>{{ event.date }} à {{ event.time }}</span>
+                        <p>{{ event.description|default:"Aucune description disponible." }}</p>
+                        <div class="event-links">
+                            <a href="{% url 'register_to_event' event.id %}">S'inscrire</a>
+                            <a href="{% url 'view_participants' event.id %}">Voir les participants</a>
+                            {% if event.creator == user %}
+                                <a href="{% url 'edit_event' event.id %}">Modifier</a>
+                                <a href="{% url 'delete_event' event.id %}">Supprimer</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+            {% empty %}
+                <li>Aucun événement trouvé.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <footer>
+        <p>&copy; 2024 BDS ICAM - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

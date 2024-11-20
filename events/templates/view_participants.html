@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participants - {{ event.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9ff; /* Bleu clair */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0044cc; /* Bleu foncé */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        li a {
+            text-decoration: none;
+            color: #0044cc;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        li a:hover {
+            color: #ffa500; /* Jaune */
+        }
+        .publisher {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0044cc;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Participants - {{ event.title }}</h1>
+    </header>
+    <div class="container">
+        <div class="publisher">
+            <strong>Publié par : </strong>
+            <a href="{% url 'view_profile' event.creator.id %}">
+                {{ event.creator.username }}
+            </a>
+        </div>
+
+        <ul>
+            {% for participant in participants %}
+                <li>
+                    {{ participant.participant.username }} (Inscrit le {{ participant.registered_at }}) <a href="{% url 'view_profile' participant.participant_id %}">Voir le profil</a>
+                </li>
+            {% empty %}
+                <li>Aucun participant trouvé.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'home' %}" style="margin-top: 20px; display: inline-block;">Retour à la page d'accueil</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 BDS ICAM - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

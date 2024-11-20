@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil de {{ profile_user.username }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9ff; /* Bleu clair */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0044cc; /* Bleu foncé */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0044cc;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #0044cc;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #333;
+            margin: 5px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #0044cc;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #ffa500;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0044cc;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Profil de {{ profile_user.username }}</h1>
+    </header>
+    <div class="container">
+        {% if profile_user.profile_picture %}
+            <img src="{{ profile_user.profile_picture.url }}" alt="Photo de {{ profile_user.username }}" class="profile-picture">
+        {% else %}
+            <img src="/static/default_profile_picture.jpg" alt="Photo par défaut" class="profile-picture">
+        {% endif %}
+        
+        <h2>{{ profile_user.username }}</h2>
+        <p><strong>Email : </strong>{{ profile_user.email }}</p>
+        <p><strong>Date d'inscription : </strong>{{ profile_user.date_joined|date:"d/m/Y" }}</p>
+
+        {% if profile_user.first_name or profile_user.last_name %}
+            <p><strong>Nom complet : </strong>{{ profile_user.first_name }} {{ profile_user.last_name }}</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}">Retour à la page d'accueil</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 BDS ICAM - Tous droits réservés</p>
+    </footer>
+</body>
+</html>
